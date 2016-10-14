@@ -1,0 +1,9 @@
+D:\GIT\algorithms\huffman\huffman\bin\Debug\huffman.exe.config
+D:\GIT\algorithms\huffman\huffman\bin\Debug\huffman.exe
+D:\GIT\algorithms\huffman\huffman\bin\Debug\huffman.pdb
+D:\GIT\algorithms\huffman\huffman\obj\Debug\huffman.csprojResolveAssemblyReference.cache
+D:\GIT\algorithms\huffman\huffman\obj\Debug\huffman.Form1.resources
+D:\GIT\algorithms\huffman\huffman\obj\Debug\huffman.Properties.Resources.resources
+D:\GIT\algorithms\huffman\huffman\obj\Debug\huffman.csproj.GenerateResource.Cache
+D:\GIT\algorithms\huffman\huffman\obj\Debug\huffman.exe
+D:\GIT\algorithms\huffman\huffman\obj\Debug\huffman.pdb
