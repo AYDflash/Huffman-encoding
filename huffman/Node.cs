@@ -44,7 +44,7 @@ namespace huffman
                 {
                     List<bool> rightPath = new List<bool>();
                     rightPath.AddRange(data);
-                    rightPath.Add(false);
+                    rightPath.Add(true);
 
                     right = Right.Traverse(symbol, rightPath);
                 }

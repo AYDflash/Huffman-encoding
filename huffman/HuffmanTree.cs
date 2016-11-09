@@ -11,8 +11,11 @@ namespace huffman
     {
         private List<Node> nodes = new List<Node>();
         public Node Root { get; set; }
+        
+        private int countSource; //кол-во символов в тексте
         public Dictionary<char, int> Frequencies = new Dictionary<char, int>();
-
+        public Dictionary<char, string> Alphabet = new Dictionary<char, string>();
+        public List<int> countSymbols = new List<int>();
         public void Build(string source) 
         {
             for (int i = 0; i < source.Length; i++)
@@ -59,12 +62,22 @@ namespace huffman
 
         public BitArray Encode(string source)
         {
+            countSource = source.Length;
             List<bool> encodedSource = new List<bool>();
-
             for (int i = 0; i < source.Length; i++)
             {
                 List<bool> encodedSymbol = this.Root.Traverse(source[i], new List<bool>());
                 encodedSource.AddRange(encodedSymbol);
+                bool[] array = encodedSymbol.ToArray();
+                string _temp = "";
+                countSymbols.Add(array.Length);
+                for (int j = 0; j < array.Length; j++)
+                {
+                    if (array[j] == true) _temp += 1 + "";
+                    else _temp += 0 + "";
+                }
+                if(Alphabet.ContainsKey(source[i]) == false)
+                Alphabet.Add(source[i], _temp);
             }
 
             BitArray bits = new BitArray(encodedSource.ToArray());
@@ -106,6 +119,55 @@ namespace huffman
         public bool isLeaf(Node node) 
         {
             return (node.Left == null && node.Right == null);
+        }
+
+        public string GetNodes() 
+        {
+            string result = "";
+            foreach (var sym in Alphabet) 
+            {
+                result += sym + " ";
+            }
+
+            return result;
+        }
+
+        public double getNValue() 
+        {
+            double result = Math.Log(Frequencies.Count, 2);
+            return result;
+        }
+
+        public double getNAvgValue() 
+        {
+            int[] countSymb = countSymbols.ToArray();
+            double result = 0;
+            int i = 0;
+            foreach (KeyValuePair<char, int> symbol in Frequencies)
+            {
+                result += (1.0*symbol.Value / countSource) * countSymb[i];
+                i++;
+            }
+
+            return result;
+        }
+
+        public double getMValue() 
+        {
+            return getNValue() / getNAvgValue();
+        }
+
+        public double getEnthrophy() 
+        {
+            double result = 0;
+
+            foreach (KeyValuePair<char, int> symbol in Frequencies) 
+            {
+                double pi = (1.0 * symbol.Value / countSource);
+                result -= (1.0 * symbol.Value / countSource) * Math.Log(pi, 2);
+            }
+
+            return +result;
         }
     }
 }
