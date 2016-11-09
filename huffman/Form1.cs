@@ -29,21 +29,21 @@ namespace huffman
 
                 //Закодировать
                 BitArray encoded = huffman.Encode(inputText);
-                richTextBox2.Text += "Строка на выходе кодера: ";
+                //richTextBox2.Text += "Строка на выходе кодера: ";
                 foreach (bool bit in encoded)
                 {
 
                   richTextBox2.Text +=(bit ? 1:0);
                 }
 
-                string decoded = huffman.Decode(encoded);
-                richTextBox2.Text += "\nСтрока на выходе декодера: ";
-                richTextBox2.Text += "\n" + decoded;
+                //string decoded = huffman.Decode(encoded);
+                //richTextBox2.Text += "\nСтрока на выходе декодера: ";
+                //richTextBox2.Text += "\n" + decoded;
 
                 richTextBox3.Text += huffman.GetNodes();
                 nLabel.Text = string.Format("n = {0:f3}", huffman.getNValue());
                 nAvgLabel.Text = string.Format("n_сред = {0:f3}",huffman.getNAvgValue());
-                mLabel.Text = string.Format("M = {0:f3}", huffman.getMValue());
+                mLabel.Text = string.Format("M = {0:f3}, {1}% сжатия", huffman.getMValue(), (int)((1 - huffman.getMValue()) * 100));
                 HALable.Text = string.Format("H(A) = {0:f3}", huffman.getEnthrophy());
             }
             else 

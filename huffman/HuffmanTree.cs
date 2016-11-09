@@ -11,11 +11,9 @@ namespace huffman
     {
         private List<Node> nodes = new List<Node>();
         public Node Root { get; set; }
-        
         private int countSource; //кол-во символов в тексте
         public Dictionary<char, int> Frequencies = new Dictionary<char, int>();
         public Dictionary<char, string> Alphabet = new Dictionary<char, string>();
-        public List<int> countSymbols = new List<int>();
         public void Build(string source) 
         {
             for (int i = 0; i < source.Length; i++)
@@ -70,7 +68,6 @@ namespace huffman
                 encodedSource.AddRange(encodedSymbol);
                 bool[] array = encodedSymbol.ToArray();
                 string _temp = "";
-                countSymbols.Add(array.Length);
                 for (int j = 0; j < array.Length; j++)
                 {
                     if (array[j] == true) _temp += 1 + "";
@@ -140,7 +137,14 @@ namespace huffman
 
         public double getNAvgValue() 
         {
-            int[] countSymb = countSymbols.ToArray();
+            int[] countSymb = new int[Alphabet.Count];
+            int j = 0;
+            foreach (var sym in Alphabet)
+            {
+                countSymb[j] = sym.Value.Length;
+                j++;
+            }
+ 
             double result = 0;
             int i = 0;
             foreach (KeyValuePair<char, int> symbol in Frequencies)
@@ -154,7 +158,7 @@ namespace huffman
 
         public double getMValue() 
         {
-            return getNValue() / getNAvgValue();
+            return getNAvgValue() / getNValue();
         }
 
         public double getEnthrophy() 
