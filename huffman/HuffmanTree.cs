@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using System.Threading.Tasks;
 
 namespace huffman
@@ -62,21 +63,21 @@ namespace huffman
         {
             countSource = source.Length;
             List<bool> encodedSource = new List<bool>();
-            for (int i = 0; i < source.Length; i++)
-            {
-                List<bool> encodedSymbol = this.Root.Traverse(source[i], new List<bool>());
-                encodedSource.AddRange(encodedSymbol);
-                bool[] array = encodedSymbol.ToArray();
-                string _temp = "";
-                for (int j = 0; j < array.Length; j++)
+                for (int i = 0; i < source.Length; i++)
                 {
-                    if (array[j] == true) _temp += 1 + "";
-                    else _temp += 0 + "";
+                    List<bool> encodedSymbol = this.Root.Traverse(source[i], new List<bool>());
+                    encodedSource.AddRange(encodedSymbol);
+                    bool[] array = encodedSymbol.ToArray();
+                    string _temp = "";
+                    for (int j = 0; j < array.Length; j++)
+                    {
+                        if (array[j] == true) _temp += 1 + "";
+                        else _temp += 0 + "";
+                    }
+                    if (Alphabet.ContainsKey(source[i]) == false)
+                        Alphabet.Add(source[i], _temp);
                 }
-                if(Alphabet.ContainsKey(source[i]) == false)
-                Alphabet.Add(source[i], _temp);
-            }
-
+                
             BitArray bits = new BitArray(encodedSource.ToArray());
 
             return bits;
@@ -131,7 +132,7 @@ namespace huffman
 
         public double getNValue() 
         {
-            double result = Math.Log(Frequencies.Count, 2);
+            double result = Math.Ceiling(Math.Log(Frequencies.Count, 2));
             return result;
         }
 
@@ -168,7 +169,7 @@ namespace huffman
             foreach (KeyValuePair<char, int> symbol in Frequencies) 
             {
                 double pi = (1.0 * symbol.Value / countSource);
-                result -= (1.0 * symbol.Value / countSource) * Math.Log(pi, 2);
+                result -= (1.0 * symbol.Value / countSource) * Math.Ceiling(Math.Log(pi, 2));
             }
 
             return +result;
